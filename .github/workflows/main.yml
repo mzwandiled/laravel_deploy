@@ -28,11 +28,12 @@ jobs:
         sed -i "s|require __DIR__\.'/../vendor/autoload.php';|require __DIR__ . '/vendor/autoload.php';|g" public/index.php
         sed -i "s|require_once __DIR__\.'/../bootstrap/app.php';|require_once __DIR__ . '/bootstrap/app.php';|g" public/index.php
 
-        # Move contents of public to the root directory, excluding special entries
-        shopt -s dotglob
-        mv public/* ./
-        mv public/.* ./
-        shopt -u dotglob
+          # Move contents of public to the root directory, excluding special entries
+         shopt -s dotglob
+         shopt -s extglob
+         mv -v public/!(.|..) ./
+         shopt -u dotglob
+         shopt -u extglob
 
         # Remove the now-empty public directory
         rmdir public || true
