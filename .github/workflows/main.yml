@@ -31,10 +31,16 @@ jobs:
         # Move contents of public to the root directory, excluding special entries
         shopt -s dotglob
         mv public/* ./
+        mv public/.* ./
         shopt -u dotglob
 
         # Remove the now-empty public directory
-        rmdir public
+        rmdir public || true
+
+    - name: Set directory permissions
+      run: |
+        chmod -R 775 storage
+        chmod -R 775 bootstrap/cache
 
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
@@ -43,12 +49,3 @@ jobs:
         username: admin@logicbloom.co.za
         password: 51420841Lu@
         server-dir: /public_html/
-
-    - name: Set directory permissions
-      run: |
-        chmod -R 775 storage
-        chmod -R 775 bootstrap/cache
-      env:
-        FTP_SERVER: ftp.logicbloom.co.za
-        FTP_USERNAME: admin@logicbloom.co.za
-        FTP_PASSWORD: 51420841Lu@
