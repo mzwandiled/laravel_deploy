@@ -62,3 +62,4 @@ jobs:
         username: admin@logicbloom.co.za
         password: 51420841Lu@
         server-dir: /public_html/
+         local-dir: public/
