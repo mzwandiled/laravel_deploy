@@ -42,6 +42,13 @@ jobs:
         chmod -R 775 storage
         chmod -R 775 bootstrap/cache
 
+    - name: Clear Laravel Cache
+      run: |
+        php artisan config:clear
+        php artisan cache:clear
+        php artisan route:clear
+        php artisan view:clear
+
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
